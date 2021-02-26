@@ -1,5 +1,8 @@
 const express=require("express");
 const User =require('../models/User')
+const obj_id=require('mongoose').Types.ObjectId;
+
+
 const user_route=express.Router();
 
 user_route.get('/',(req,res)=>{
@@ -39,6 +42,17 @@ user_route.post('/',(req,res)=>{
 
 })
 user_route.get('/:id',(req,res)=>{
+    if(obj_id!==req.params.id){
+       res.send("Wrong id was given")
+    }
+    User.findByIdAndDelete(obj_id, (err,doc)=>{
+        if(err){
+            res.send(JSON.stringify(err))
+        }else{
+            res.send("user deleted")
+        }
+    })
+
 
 })
 user_route.delete('/:id',(req,res)=>{
