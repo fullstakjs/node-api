@@ -41,7 +41,7 @@ user_route.post('/',(req,res)=>{
     })
 
 })
-user_route.get('/:id',(req,res)=>{
+user_route.delete('/:id',(req,res)=>{
     if(obj_id!==req.params.id){
        res.send("Wrong id was given")
     }
@@ -55,7 +55,19 @@ user_route.get('/:id',(req,res)=>{
 
 
 })
-user_route.delete('/:id',(req,res)=>{
+user_route.get('/:id',(req,res)=>{
+    if(obj_id!==req.params.id){
+        res.send("Wrong id was given")
+     }
+     User.findById(obj_id,(err,doc)=>{
+         if(!err){
+             res.send(doc)
+         }
+         else{
+             res.send(JSON.stringify(err))
+         }
+     })
+
 
 })
 
